@@ -7,7 +7,8 @@ char filename[100];
 char *NewMessage;
 FILE *fp;
 FILE *fp2;
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     int size,subSize, rank,np;
 
     MPI_Init(&argc, &argv);
@@ -21,8 +22,9 @@ int main(int argc, char **argv) {
     int key;
 
     int i;
-    if (rank == 0) {
-        
+    if (rank == 0)
+    {
+
         // filename = "file.txt";
         printf("Enter file name: ");
         scanf("%s", filename);
@@ -40,8 +42,10 @@ int main(int argc, char **argv) {
         sublength=length/np;
 
         int remainder=length%np;
-        if(remainder!=0){
-            for(i=0;i<remainder;i++){
+        if(remainder!=0)
+        {
+            for(i=0; i<remainder; i++)
+            {
                 message[length+i]=' ';
             }
             length=strlen(message); //update length
@@ -55,7 +59,7 @@ int main(int argc, char **argv) {
 
     MPI_Bcast(&sublength, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&key, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    
+
     MPI_Scatter(message, sublength, MPI_CHAR, subMessage, sublength, MPI_CHAR, 0, MPI_COMM_WORLD);
     printf("Processor %d has subMessage : ", rank);
     for (i=0; i<sublength; i++)
@@ -63,16 +67,21 @@ int main(int argc, char **argv) {
     printf("\n");
 
     //encrypt the message using the caesar cipher
-    for (i=0; i<sublength; i++){
-        if(subMessage[i] >= 'a' && subMessage[i] <= 'z'){
+    for (i=0; i<sublength; i++)
+    {
+        if(subMessage[i] >= 'a' && subMessage[i] <= 'z')
+        {
             subMessage[i] = subMessage[i] + key;
-            if(subMessage[i] > 'z'){
+            if(subMessage[i] > 'z')
+            {
                 subMessage[i] = subMessage[i] - 'z' + 'a' - 1;
             }
         }
-        else if(subMessage[i] >= 'A' && subMessage[i] <= 'Z'){
+        else if(subMessage[i] >= 'A' && subMessage[i] <= 'Z')
+        {
             subMessage[i] = subMessage[i] + key;
-            if(subMessage[i] > 'Z'){
+            if(subMessage[i] > 'Z')
+            {
                 subMessage[i] = subMessage[i] - 'Z' + 'A' - 1;
             }
         }
@@ -80,9 +89,10 @@ int main(int argc, char **argv) {
 
 
     MPI_Gather(subMessage, sublength, MPI_CHAR, NewMessage, sublength, MPI_CHAR, 0, MPI_COMM_WORLD);
-    if(rank==0){
+    if(rank==0)
+    {
         printf("Master can see Message after encryption %s\n", NewMessage);
-        
+
         fp2 = fopen("encrypted.txt","w");
         if(fp2 == NULL)
         {
@@ -90,7 +100,8 @@ int main(int argc, char **argv) {
             exit(1);
         }
         //write message to file
-        for(i=0;i<length;i++){
+        for(i=0; i<length; i++)
+        {
             fprintf(fp2,"%c",NewMessage[i]);
         }
         fclose(fp2);
