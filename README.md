@@ -1,4 +1,4 @@
-Assignment 3 in High performance Computing(Parrallel processing) Encrypt a message using Caesar Cipher.
+Assignment 3 in High performance Computing (Parrallel processing), Encrypt a message using Caesar Cipher.
 
 # Assignment Describtion
 #### [Using BCast, Scatter and Gather ONLY]
