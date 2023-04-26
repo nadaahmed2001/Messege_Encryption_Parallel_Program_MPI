@@ -28,4 +28,4 @@ so 20/4 = 5 and 20%4=0 ... then each process will handle 5 charachters
 **Second case:** a messege length is not divisible by number of processes, in myfile.txt I have written a string of 20 characters\
 but used 3 processes, 20%3=2... so each process will take 6 characters and the last 2 characters are handeled by master at the end
 
-![Problem1WithRemainder](https://user-images.githubusercontent.com/60941223/234661026-f9396c68-478a-4c66-9587-73b9c442e3af.JPG)
+![Problem1WithRemainder](https://user-images.githubusercontent.com/60941223/234662072-3ac9af55-63b2-49be-a2d4-b7fba27351c0.JPG)
