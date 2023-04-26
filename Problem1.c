@@ -41,20 +41,10 @@ int main(int argc, char **argv)
         length=strlen(message);
         sublength=length/np;
 
-        int remainder=length%np;
-        if(remainder!=0)
-        {
-            for(i=0; i<remainder; i++)
-            {
-                message[length+i]=' ';
-            }
-            length=strlen(message); //update length
-            sublength=length/np; //update sublength
-        }
         NewMessage = (char *) malloc(length * sizeof(char));
         printf("Enter key: ");
         scanf("%d", &key);
-        printf("Master can see Message before encryption %s\n", message);
+        printf("Master can see Message before encryption: %s\n", message);
     }
 
     MPI_Bcast(&sublength, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -88,10 +78,40 @@ int main(int argc, char **argv)
     }
 
 
-    MPI_Gather(subMessage, sublength, MPI_CHAR, NewMessage, sublength, MPI_CHAR, 0, MPI_COMM_WORLD);
+    MPI_Gather(subMessage, sublength, MPI_CHAR, message, sublength, MPI_CHAR, 0, MPI_COMM_WORLD);
     if(rank==0)
     {
-        printf("Master can see Message after encryption %s\n", NewMessage);
+        //handle remaining characters
+        if(length/np!=0)
+        {
+            int remainder = length - (np * sublength);
+            for (int i = np*sublength; i < length; ++i)
+            {
+                printf("%c", message[i]);
+            }
+     
+            for (int i = np*sublength; i < length; ++i)
+            {
+                if(message[i] >= 'a' && message[i] <= 'z')
+                {
+                    message[i] = message[i] + key;
+                    if(message[i] > 'z')
+                    {
+                        message[i] = message[i] - 'z' + 'a' - 1;
+                    }
+                }
+                else if(message[i] >= 'A' && message[i] <= 'Z')
+                {
+                    message[i] = message[i] + key;
+                    if(message[i] > 'Z')
+                    {
+                        message[i] = message[i] - 'Z' + 'A' - 1;
+                    }
+                }
+            }
+
+        }
+        printf("Master can see Message after encryption: %s\n", message);
 
         fp2 = fopen("encrypted.txt","w");
         if(fp2 == NULL)
@@ -102,7 +122,7 @@ int main(int argc, char **argv)
         //write message to file
         for(i=0; i<length; i++)
         {
-            fprintf(fp2,"%c",NewMessage[i]);
+            fprintf(fp2,"%c",message[i]);
         }
         fclose(fp2);
 
