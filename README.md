@@ -18,14 +18,14 @@ Any other character outside the range from A to Z (or a to z) is transferred to 
 
 ## ScreenShots of my source code output:
 
-**First case:** a messege length is divisible by number of processes, in myfile.txt I have written a string of 16 characters\
-so 16/4 = 4 and 16%4=0 ... then each process will handle 4 charachters
-
-![Problem1WithoutRemainder](https://user-images.githubusercontent.com/60941223/233894524-49cae15b-9b89-4f9a-ba23-9fe4299bbaf4.JPG)
+**First case:** a messege length is divisible by number of processes, in myfile.txt I have written a string of 20 characters\
+so 20/4 = 5 and 20%4=0 ... then each process will handle 5 charachters
 
 
-**Second case:** a messege length is not divisible by number of processes, in myfile.txt I have written a string of 18 characters\
-but 18%4=2...so I have added white spaces to the message with number equals to the number of remainder...so that each process will take equal number of charachters
+![Problem1WithoutRemainder](https://user-images.githubusercontent.com/60941223/234660706-87f87601-6741-45e9-8bb1-45a9db6eed31.JPG)
 
 
-![Problem1WithRemainder](https://user-images.githubusercontent.com/60941223/233894547-a9a5fe6c-852a-4b3a-997f-438efef206c1.JPG)
+**Second case:** a messege length is not divisible by number of processes, in myfile.txt I have written a string of 20 characters\
+but used 3 processes, 20%3=2... so each process will take 6 characters and the last 2 characters are handeled by master at the end
+
+![Problem1WithRemainder](https://user-images.githubusercontent.com/60941223/234661026-f9396c68-478a-4c66-9587-73b9c442e3af.JPG)
