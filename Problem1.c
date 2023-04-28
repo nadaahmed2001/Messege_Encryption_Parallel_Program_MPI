@@ -82,7 +82,7 @@ int main(int argc, char **argv)
     if(rank==0)
     {
         //handle remaining characters
-        if(length/np!=0)
+        if(length%np!=0)
         {
             int remainder = length - (np * sublength);
             for (int i = np*sublength; i < length; ++i)
