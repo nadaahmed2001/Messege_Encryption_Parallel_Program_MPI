@@ -20,7 +20,6 @@ int main(int argc, char **argv)
     int length;
     int sublength;
     int key;
-
     int i;
     if (rank == 0)
     {
