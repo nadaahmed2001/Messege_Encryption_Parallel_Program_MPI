@@ -5,7 +5,7 @@ Assignment 3 in High performance Computing (Parrallel processing), Encrypt a mes
 
 You are required to take a message from a file and encrypt the message using caesar cipher and store the output in a new file.\
 The encryption can be represented using modular arithmetic by first transforming the letters into
-numbers, according to the scheme, A = 0, B = 1,…, Z = 25.\
+numbers, according to the scheme, A = 0, B = 1,…, Z = 25.
 
 For example :\
 Encryption of a letter x by
